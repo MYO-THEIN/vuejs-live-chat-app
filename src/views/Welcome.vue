@@ -1,18 +1,39 @@
 <template>
     <div class="welcome container">
-        <h2>Welcome to my live chat app</h2>
-        <SignUp></SignUp>
-        <Login></Login>
+        <h2>Welcome to Live Chat app</h2>
+        <div v-if="showLoginForm">
+            <Login />
+            <p>
+                Not a member? 
+                <span @click="showLoginForm = !showLoginForm">Create account</span>
+            </p>
+        </div>
+        <div v-else>
+            <SignUp />
+            <p>
+                Member already?
+                <span @click="showLoginForm = !showLoginForm">Login account</span>
+            </p>
+        </div>
     </div>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
 export default {
     components: {
         Login,
         SignUp
+    },
+    setup() {
+        // data
+        let showLoginForm = ref(true);
+
+        return {
+            showLoginForm
+        };
     }
 }
 </script>
