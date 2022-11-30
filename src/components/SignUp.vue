@@ -4,44 +4,28 @@
         <input type="text" placeholder="User name" v-model="username" />
         <input type="text" placeholder="Email" v-model="email" />
         <input type="text" placeholder="Password" v-model="password" />
+        <div v-if="error" class="error">{{error}}</div>
         <button>Sign Up</button>
     </form>
-    <p v-if="error" class="error">{{error}}</p>
 </template>
 
 <script>
-import { auth, createUserWithEmailAndPassword, updateProfile } from '../firebase/config'
+import useSignUp from '../composables/signUp';
 import { ref } from '@vue/reactivity'
 export default {
     setup(){
+        let { createNewUserAccount, error } = useSignUp();
+
         // data
         let username = ref(""),
             email = ref(""),
-            password = ref(""),
-            error = ref("");
+            password = ref(""); 
 
         // methods
         let signUp = async()=>{
-            try {
-                let response = await createUserWithEmailAndPassword(auth, email.value, password.value)
-                if (response) {
-                    // update user profile
-                    await updateProfile(auth.currentUser, {
-                        displayName: username.value
-                    }).then(()=>{
-                        console.log("User profile has been updated");
-                    }).catch((err)=>{
-                        console.log(err.message);
-                    });
-
-                    console.log(response.user);
-                    error.value = "";
-                } else {
-                    throw new Error("Couldn't create new user account in Firebase");
-                };
-            }
-            catch (err) {
-                error.value = err.message;
+            let response = await createNewUserAccount(username.value, email.value, password.value);
+            if (response) {
+                // redirect codes
             }
         }
 

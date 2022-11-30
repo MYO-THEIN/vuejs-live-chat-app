@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, serverTimestamp } from 'firebase/firestore'
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDyKUVNfqHC4lvotqHxZ4ykUcEFTsuv0PQ",
@@ -26,5 +26,6 @@ export {
     serverTimestamp,
     auth,
     createUserWithEmailAndPassword,
-    updateProfile
+    updateProfile,
+    signInWithEmailAndPassword
 };
