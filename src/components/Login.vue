@@ -12,7 +12,7 @@
 import useLogin from '../composables/login'
 import { ref } from '@vue/reactivity'
 export default {
-    setup(){
+    setup(props, context) {
         let {loggingIn, error} = useLogin();
 
         // data
@@ -23,7 +23,7 @@ export default {
         let login = async()=>{
             let response = await loggingIn(email.value, password.value);
             if (response) {
-                // redirect codes
+                context.emit("enterChatroom");
             }
         }
 
