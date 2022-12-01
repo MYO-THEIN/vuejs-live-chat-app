@@ -3,7 +3,8 @@ import { getFirestore, serverTimestamp } from 'firebase/firestore'
 import { getAuth, 
         createUserWithEmailAndPassword, updateProfile, 
         signInWithEmailAndPassword,
-        signOut } from 'firebase/auth'
+        signOut,
+        onAuthStateChanged } from 'firebase/auth'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDyKUVNfqHC4lvotqHxZ4ykUcEFTsuv0PQ",
@@ -30,5 +31,6 @@ export {
     auth,
     createUserWithEmailAndPassword, updateProfile,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 };
