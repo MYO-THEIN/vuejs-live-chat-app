@@ -10,21 +10,25 @@
 <script>
 import { ref } from '@vue/reactivity'
 import getCurrentUser from '../composables/getCurrentUser'
+import useCollection from '../composables/useCollection'
 import { serverTimestamp } from '../firebase/config'
 export default {
     setup() {
+        let { error, addDocument } = useCollection("messages");
+
         // data
         let user = getCurrentUser();
         let message = ref("");
 
         // methods
-        let handleSubmit = ()=>{
-            let chat = {
+        let handleSubmit = async()=>{
+            let newMessage = {
                 message: message.value,
                 name: user.value.displayName,
                 created_at: serverTimestamp()
             };
 
+            await addDocument(newMessage);
             message.value = "";
         }
 
